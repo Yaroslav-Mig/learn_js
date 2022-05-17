@@ -1,0 +1,43 @@
+div[class|='block'] {
+  width: 50%;
+  margin: 20px auto;
+  padding: 10px;
+  border: 2px solid olivedrab;
+}
+.block-5 {
+  background-color: lightgreen;
+}
+div.block-6 {
+  width: 80%;
+  padding: 20px;
+  box-sizing: border-box;
+  border: 2px solid olivedrab;
+  background-color: yellowgreen;
+}
+.box-wrapper {
+  margin: 0 auto;
+  max-width: 1020px;
+  width: 100%;
+	min-height: 100px;
+	border: 2px solid slateblue;
+}
+#box {
+  width: 100px;
+  height: 100px;
+  margin: 30px auto;
+  box-sizing: border-box;
+	background: peru;
+}
+.day {
+  color: black;
+  background-color: lightyellow;
+  cursor: pointer;
+}
+.night {
+  color: white;
+  background-color: black;
+  cursor: pointer;
+}
+#btn {
+	margin: 20px 5rem;
+} 
