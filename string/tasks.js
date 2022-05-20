@@ -24,3 +24,43 @@
 		console.log(reversString(str));
 	}
 }
+//! Repeat string
+//TODO: to repeat a string with constructor new Array and fill()
+{
+  const repeatString = (str, times, divider) => Array(times).fill(str).join(divider);
+  console.log(repeatString('yo', 3, ','));
+}
+//TODO: to repeat a string with constructor new Array, from() and join
+{
+	const repeatString = (str, times, divider) => Array.from({ length: times }, () => str).join(divider);
+	console.log(repeatString('yo', 3, ','));
+}
+//TODO: to repeat a string recursion function
+{
+  const repeatString = (str, times, divider) => {
+    if (times < 0) {
+      return '';
+    } else if (times === 1) {
+      return str;
+    } else {
+      return str + divider + repeatString(str, times - 1, divider);
+    }
+  };
+  console.log(repeatString('yo', 3, ','));
+}
+//TODO: to repeat a string with repeat() and slice()
+{
+	const repeatString = (str, times, divider) => (str + divider).repeat(times).slice(0, -divider.length);
+  console.log(repeatString('yo', 3, ','));
+}
+//TODO: to repeat a string with loop while() and slice()
+{
+	const repeatString = (str, times, divider) => {
+		let repeatStr = '';
+		while (times--) {
+			repeatStr += str + divider;
+		}
+		return repeatStr.slice(0, -divider.length);
+	}
+  console.log(repeatString('yo', 3, ','));
+}
