@@ -294,6 +294,10 @@
   console.log('--------');
 }
 
+//! The only difference is this:
+!isNaN(1/0) // --> true
+isFinite(1/0) // --> false
+
 {
   function checkIsNumber(value) {
     if (value instanceof Number) {
