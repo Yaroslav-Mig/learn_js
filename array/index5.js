@@ -52,3 +52,75 @@
   console.log(newCar);
   console.log(myCar);
 }
+
+//TODO: polyfill for function slice()
+{
+  const sliceFn = (arr, start = 0, end = arr.length) => {
+    const endInd = arr.length;
+
+    if (start > arr.length) {
+      return [];
+    }
+    if (end > endInd) {
+      end = endInd;
+    }
+    if (start < 0) {
+      start = start + endInd;
+    }
+    if (end < 0) {
+      end = end + endInd;
+    }
+
+    let newArr = [];
+
+    for (let i = start; i < end; i++) {
+      newArr.push(arr[i]);
+    }
+    return newArr;
+  };
+
+  const fruits = ['Banana', 'Orange', 'Lemon', 'Apple', 'Mango'];
+
+  //* normal
+  console.log(sliceFn(fruits, 1, 3));
+  console.log(fruits.slice(1, 3));
+  console.log('----------------');
+
+  //* there are no arguments
+  console.log(sliceFn(fruits, 1, 3));
+  console.log(fruits.slice(1, 3));
+  console.log('----------------');
+
+  //* If start is undefined
+  console.log(sliceFn(fruits));
+  console.log(fruits.slice());
+  console.log('----------------');
+
+  //* If end is omitted
+  console.log(sliceFn(fruits, 1));
+  console.log(fruits.slice(1));
+  console.log('----------------');
+
+  //* If end is greater than the length of the sequence
+  console.log(sliceFn(fruits, 1, 7));
+  console.log(fruits.slice(1, 7));
+  console.log('----------------');
+
+  //* If start is greater than the index range of the sequence
+  console.log(sliceFn(fruits, 6, 7));
+  console.log(fruits.slice(6, 7));
+  console.log('----------------');
+
+  //* If start is greater than the end
+  console.log(sliceFn(fruits, 3, 1));
+  console.log(fruits.slice(3, 1));
+  console.log('----------------');
+
+  //* A negative index indicates an offset from the end of the sequence
+  console.log(sliceFn(fruits, -2));
+  console.log(fruits.slice(-2));
+  console.log('----------------');
+
+  console.log(sliceFn(fruits, 2, -1));
+  console.log(fruits.slice(2, -1));
+}
