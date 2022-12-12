@@ -1,6 +1,6 @@
 let user = null;
-// console.log(user?.address);
-// console.log(user?.address.street);
+console.log(user?.address);
+console.log(user?.address.street);
 
 let user3 = {
   firstName: 'Bob',
@@ -13,10 +13,10 @@ let user4 = {};
 user3.admin?.();
 user4.admin?.();
 
-// let key = 'firstName';
+let key = 'firstName';
 
-// console.log(user3?.[key]);
-// console.log(user4?.[key]);
+console.log(user3?.[key]);
+console.log(user4?.[key]);
 
 function Archiver() {
   var temperature = null;
@@ -62,8 +62,8 @@ console.log(arc);
   };
 }
 
-let user = {
-  name: 'John',
-  years: 30,
-};
-let { name, years: age, isAdmin = false } = user;
+// let user = {
+//   name: 'John',
+//   years: 30,
+// };
+// let { name, years: age, isAdmin = false } = user;
