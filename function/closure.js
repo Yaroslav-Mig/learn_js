@@ -95,7 +95,16 @@ console.log('----------');
 let func2 = test();
 func2();  // 3
 func2();  // 4
+}
 
-	
+{
+	function multiply(x) {
+		const a = x;
+		return (b) => a * b;
+	}
+	const multiplyX2 = multiply(2);
+	const multiplyX5 = multiply(5);
+  console.log(multiplyX2(5));
+  console.log(multiplyX5(5));
 }
 

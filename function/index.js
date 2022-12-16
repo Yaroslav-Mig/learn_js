@@ -1,56 +1,3 @@
-//TODO: params
-{
-  function func(from, text = 'text didn`t add') {
-    console.log(`${from} : ${text}`);
-  }
-  func('Ann');
-
-  function showMessage(from, text = anotherFunction()) {}
-
-  function showMessage2(from, text) {
-    if (text === undefined) {
-      text = 'text didn`t add';
-    }
-  }
-
-  function showMessage3(from, text) {
-    text = text || 'text didn`t add';
-  }
-
-  function test(func1, func2) {
-    console.log(func1() + func2());
-  }
-
-  test(
-    () => 1,
-    () => 2
-  );
-
-  function test2(num, func) {
-    console.log(func(num));
-  }
-  test2(2, function (num) {
-    return num * num;
-  });
-
-  function changeArr(arr, func) {
-    for (let i = 0; i < arr.length; i++) {
-      arr[i] = func(arr[i]);
-    }
-    return arr;
-  }
-  const result = changeArr([1, 2, 3], (el) => el * el);
-  console.log(result);
-
-  function test3(num) {
-    function func(localNum) {
-      num = 2;
-    }
-    func(num);
-    console.log(num);
-  }
-  test3(1);
-}
 //TODO: invoke fn and type
 {
   func(); // invoke of func before declaration only for Function Declaration;
@@ -97,15 +44,31 @@
 }
 
 //TODO: return func
-
 {
   function func() {
     return function () {
       return '!';
     };
   }
-
   let result = func();
   console.log(result());
   console.log(func()());
+
+  function menu(n) {
+    switch (n) {
+      case 1:
+        return (x, y) => x + y;
+      case 2:
+        return (x, y) => x - y;
+      case 3:
+        return (x, y) => x * y;
+      default:
+        return () => 0;
+    }
+  }
+  const action = menu(1);
+  const result2 = action(2, 5);
+  console.log(result2);
+  action2 = menu(2);
+  console.log(action(2, 5));
 }
