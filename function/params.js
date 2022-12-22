@@ -43,11 +43,17 @@
     () => 1,
     () => 2
   );
+
+  function names() {
+    const args = Array.from(arguments);
+    console.log(args);
+  }
+  names('Даша', 'Маша', 'Нина');
 }
 
 //TODO: functions as params for another func
 {
-	function test2(num, func) {
+  function test2(num, func) {
     console.log(func(num));
   }
   test2(2, function (num) {
@@ -72,21 +78,21 @@
   }
   test3(1);
 
-	function sum(x, y) {
-		return x + y;
-	}
-	function subtract(x, y) {
-		return x - y;
-	}
+  function sum(x, y) {
+    return x + y;
+  }
+  function subtract(x, y) {
+    return x - y;
+  }
 
-	function operation(x, y, func) {
-		const result = func(x, y);
-		console.log(result);
-	}
+  function operation(x, y, func) {
+    const result = func(x, y);
+    console.log(result);
+  }
 
-	console.log('Sum');
-	operation(10, 6, sum); // 16
+  console.log('Sum');
+  operation(10, 6, sum); // 16
 
-	console.log('Subtract');
-	operation(10, 6, subtract); // 4
+  console.log('Subtract');
+  operation(10, 6, subtract); // 4
 }

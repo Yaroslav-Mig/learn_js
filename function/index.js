@@ -40,7 +40,14 @@
     },
   };
   console.log(math.square(2));
-  console.log(math.cube(2));
+	console.log(math.cube(2));
+
+	const factorial = function(num) {
+		if (num <= 1) {
+			return 1;
+		}
+		return arguments.callee(num - 1) * num;
+	};
 }
 
 //TODO: return func
