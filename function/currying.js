@@ -10,7 +10,7 @@
       return function (...newArgs) {
         return curried.apply(this, args.concat(newArgs));
       };
-			//! return curried.bind(this, ...args);
+      //! return curried.bind(this, ...args);
     };
   }
 
@@ -49,4 +49,43 @@
 
   console.dir(getVolumeWidth);
   console.dir(getVolumeWidthLength);
+}
+
+{
+  const str = 'Hello'
+    .replace(/Hello/g, 'Bye')
+    .concat('!')
+    .repeat(2)
+    .split('!')
+    .filter((x) => x !== '!')
+    .map((x) => 'Hello')
+    .toString();
+
+  console.log(str);
+
+  const compose = (...functions) => {
+    return (input) => functions.reduce((acc, fn) => fn(acc), input);
+  };
+
+  const replace = (regex, replacement) => (str) => str.replace(regex, replacement);
+	const concat = (item) => (str) => str.concat(item);
+	const repeat = (number) => (str) => str.repeat(number);
+	const split = (item) => (str) => str.split(item);
+	const filter = (fn) => (arr) => arr.filter(fn);
+	const map = (fn) => (arr) => arr.map(fn);
+	const toString = (arr) => arr.toString();
+
+  const str2 = compose(
+    replace(/Hello/g, 'Bye'),
+    concat('!'),
+    repeat(2),
+    split('!'),
+    filter((x) => x != '!'),
+    map((x) => 'Hello'),
+    toString
+	)('Hello');
+	console.log(str2);
+
+
+  console.log(map((x) => x + '...')(['Hello', 'Hello world', 'Hi']));
 }
