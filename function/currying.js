@@ -26,6 +26,16 @@
 {
   const getVolume = (w, l, h) => w * l * h;
 
+  const partialFunc = (fn, ...args) => {
+    return (...innerArgs) => {
+      return fn(...args, ...innerArgs);
+    };
+	};
+
+	const volumeW = partialFunc(getVolume, 100);
+	console.log(volumeW(200, 300));
+	console.log(volumeW(70, 60));
+
   const getVolumeWidth = getVolume.bind(null, 10);
   const getVolumeWidthLength = getVolumeWidth.bind(null, 20);
 
@@ -68,12 +78,12 @@
   };
 
   const replace = (regex, replacement) => (str) => str.replace(regex, replacement);
-	const concat = (item) => (str) => str.concat(item);
-	const repeat = (number) => (str) => str.repeat(number);
-	const split = (item) => (str) => str.split(item);
-	const filter = (fn) => (arr) => arr.filter(fn);
-	const map = (fn) => (arr) => arr.map(fn);
-	const toString = (arr) => arr.toString();
+  const concat = (item) => (str) => str.concat(item);
+  const repeat = (number) => (str) => str.repeat(number);
+  const split = (item) => (str) => str.split(item);
+  const filter = (fn) => (arr) => arr.filter(fn);
+  const map = (fn) => (arr) => arr.map(fn);
+  const toString = (arr) => arr.toString();
 
   const str2 = compose(
     replace(/Hello/g, 'Bye'),
@@ -83,9 +93,8 @@
     filter((x) => x != '!'),
     map((x) => 'Hello'),
     toString
-	)('Hello');
-	console.log(str2);
-
+  )('Hello');
+  console.log(str2);
 
   console.log(map((x) => x + '...')(['Hello', 'Hello world', 'Hi']));
 }

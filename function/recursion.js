@@ -1,3 +1,48 @@
+const factorial = (n) => {
+  if (n === 1) {
+    return 1;
+  }
+  return n * factorial(n - 1);
+};
+
+//TODO: iterative function with recursion
+{
+	const factorial = (n) => {
+		let counter = 1;
+		let result = 1;
+
+		while (counter <= n) {
+			result = result * counter;
+			counter++;
+		}
+		return result;
+	}
+	console.log(factorial(4));
+
+	const factorialFor = (n) => {
+		let result = 1;
+		for (let i = 1; i <= n; i++) {
+			result = result * i;
+		}
+		return result;
+	}
+	console.log(factorialFor(3));
+}
+{
+  const factorial = (n) => {
+    const iterate = (iter, acc) => {
+      if (iter === 1) {
+        return acc;
+      }
+      return iterate(iter - 1, iter * acc);
+    };
+
+    return iterate(n, 1);
+  };
+
+  console.log(factorial(4)); //24
+}
+
 const obj = {
   a: 1,
   b: {
@@ -39,7 +84,6 @@ const getFlatArr = (arr) => {
 const str = getFlatArr(arr).join('');
 console.log(str);
 
-
 const arr4 = [1, 2, [3, 4, [5, 6, [7, 8, [9, 10]]]]];
 
 const flattenArr = (input) => {
@@ -48,7 +92,7 @@ const flattenArr = (input) => {
   while (stack.length) {
     const next = stack.pop();
     Array.isArray(next) ? stack.push(...next) : flatArr.push(next);
-	}
-	return flatArr.reverse()
+  }
+  return flatArr.reverse();
 };
 console.dir(flattenArr(arr4));
