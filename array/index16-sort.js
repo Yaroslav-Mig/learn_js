@@ -21,8 +21,12 @@
 
   const array1 = [1, 30, 4, 21, 100000];
   console.log(array1.sort());
-
   console.log([...array1].sort((a, b) => a - b));
+
+  const array2 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+  const randomSort = [...array2].sort(() => Math.random() - 0.5);
+  console.log(randomSort);
 
   const items = [
     { name: 'Edward', value: 21 },
@@ -34,5 +38,5 @@
   ];
 
   console.log(items.sort((a, b) => b.value - a.value));
-  console.log([...items].sort((a, b) => a.name > b.name ? 1 : -1));
+  console.log([...items].sort((a, b) => (a.name > b.name ? 1 : -1)));
 }
