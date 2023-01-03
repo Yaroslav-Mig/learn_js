@@ -1,4 +1,4 @@
-//TODO: проверка на наличие свойств объекта
+//TODO: constructor new
 
 function User(name) {
   if (!new.target) {
@@ -74,3 +74,25 @@ let accumulator = new Accumulator(1);
 // accumulator.read();
 // accumulator.read();
 // console.log(accumulator.value);
+
+let user = new (function (userName, isAdmin) {
+  this.userName = userName;
+	this.isAdmin = isAdmin;
+	{
+		//* another code
+	}
+})('Alex', true);
+console.log(user);
+
+function Product(name, price) {
+  this.name = name;
+  this.price = price;
+}
+
+function Food(name, price) {
+  Product.call(this, name, price);
+  this.category = 'food';
+}
+
+const cheese = new Food('cheese', 5)
+console.dir(cheese)

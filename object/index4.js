@@ -1,3 +1,4 @@
+// TODO - optional ?
 let user = null;
 console.log(user?.address);
 console.log(user?.address.street);
@@ -18,6 +19,28 @@ let key = 'firstName';
 console.log(user3?.[key]);
 console.log(user4?.[key]);
 
+//TODO: valueof() and toString()
+{
+  let user = { name: 'John' };
+  console.log(user.toString());
+  console.log(user.valueOf());
+}
+{
+  let user = {
+    name: 'John',
+    money: 1000,
+    toString() {
+      return `{name: "${this.name}"}`;
+    },
+    valueOf() {
+      return this.money;
+    },
+  };
+  console.log(user);
+  console.log(+user);
+}
+
+//TODO: Property getters and setters
 function Archiver() {
   var temperature = null;
   var archive = [];
@@ -40,7 +63,7 @@ function Archiver() {
 var arc = new Archiver();
 console.log(arc);
 
-// TODO - деструктурирующее присваивание
+// TODO - Destructuring assignment
 {
   let salaries = {
     John: 100,
