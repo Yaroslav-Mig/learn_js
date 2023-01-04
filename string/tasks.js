@@ -128,6 +128,20 @@
   console.log(isIncludes('Incubator', 'Cut'));
   console.log(isIncludes('Incubator', 'table'));
 }
+{
+  const checkSpam = (str, ...spamWords) => {
+    const lowerStr = str.toLowerCase();
+    return spamWords.reduce((flag, spam) => {
+      if (lowerStr.includes(spam.toLowerCase())) {
+        flag = true;
+      }
+      return flag;
+    }, false);
+  };
+  console.log(checkSpam('buy ViAgRA now', 'viagra', 'XXX'));
+  console.log(checkSpam('free xxxxx', 'viagra', 'XXX'));
+  console.log(checkSpam('innocent rabbit', 'viagra', 'XXX'));
+}
 
 //! Upper case first letter in the word of the string
 //TODO: to cut a string with split(), loop ,toUpperCase, charAt() and slice()
@@ -140,4 +154,18 @@
     return arr.join(' ');
   };
   console.log(setUpperCase('всем стУдентам инкуБатора Желаю удачИ!'));
+}
+
+//! truncation string
+{
+  const truncate = (str, max, end) => {
+    if (str.length <= max) {
+      return str;
+    }
+    const cutStr = str.slice(0, max + 1);
+    return cutStr.slice(0, -3) + end;
+  };
+
+  console.log(truncate('Всем привет!', 20, '...'));
+  console.log(truncate('Вот, что мне хотелось бы сказать на эту тему:', 20, '...'));
 }
