@@ -34,3 +34,30 @@
     return minBanknotes;
   }
 }
+//TODO: Get subArray of maximum elements` sum
+{
+	const getMaxSubSum = (arr) => {
+		let maxSum = 0;
+		let tempSum = 0;
+
+		for (const el of arr) {
+			tempSum = tempSum + el;
+			maxSum = Math.max(maxSum, tempSum);
+			if (tempSum < el) {
+				tempSum = el;
+				maxSum = Math.max(maxSum, tempSum);
+			}
+			// if(tempSum < 0) tempSum = 0
+		}
+		return maxSum;
+	}
+	console.log(getMaxSubSum([-1, 2, 3, -9]));
+	console.log(getMaxSubSum([2, -1, 2, 3, -9]));
+	console.log(getMaxSubSum([-1, 2, 3, -9, 11]));
+	console.log(getMaxSubSum([-2, -1, 1, 2]));
+	console.log(getMaxSubSum([100, -9, 2, -3, 5]));
+	console.log(getMaxSubSum([1, 2, 3]));
+	console.log(getMaxSubSum([-1, -2, -3]));
+	console.log(getMaxSubSum([3, 2, 1, 7]));
+}
+
