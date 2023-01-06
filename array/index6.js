@@ -42,3 +42,14 @@
   num1[0].push(4);
   console.log(numbers);
 }
+
+//TODO: Concatenating obj like array
+{
+  let arrayLike = {
+    0: 'что-то',
+    1: 'ещё',
+    [Symbol.isConcatSpreadable]: true,
+    length: 2,
+  };
+  arr.concat(arrayLike);
+}

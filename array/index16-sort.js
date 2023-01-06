@@ -39,4 +39,11 @@
 
   console.log(items.sort((a, b) => b.value - a.value));
   console.log([...items].sort((a, b) => (a.name > b.name ? 1 : -1)));
+
+  let countries = ['Österreich', 'Andorra', 'Vietnam'];
+  countries.sort((a, b) => (a > b ? 1 : -1));
+  // Andorra, Vietnam, Österreich (wrong)
+
+	countries.sort((a, b) => a.localeCompare(b));
+	// Andorra,Österreich,Vietnam
 }
