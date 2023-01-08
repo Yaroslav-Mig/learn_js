@@ -51,5 +51,23 @@
   let map = new Map();
   map.set('name', 'John');
   let keys = Array.from(map.keys());
-  keys.push("more");
+  keys.push('more');
+}
+
+//TODO: Weak store
+{
+  let messages = [
+    { text: 'Hello', from: 'John' },
+    { text: 'How goes?', from: 'John' },
+    { text: 'See you soon', from: 'Alice' },
+  ];
+  let storeMessages = new WeakSet();
+
+  const isRead = (input) => {
+    if (!storeMessages.has(input)) {
+      storeMessages.add(input);
+    }
+    return storeMessages.has(input);
+	};
+	console.log(isRead(messages[0]));
 }

@@ -115,9 +115,43 @@
   const product = new Map();
   product.set('banana', 1);
   product.set('orange', 2);
-	product.set('meat', 4);
-	console.log(product);
+  product.set('meat', 4);
+  console.log(product);
 
-	const obj2 = Object.fromEntries(product);
-	console.log(obj2);
+  const obj2 = Object.fromEntries(product);
+  console.log(obj2);
+}
+
+//TODO: WeakMap()
+{
+  let john = { name: 'John' };
+  let weakMap = new WeakMap();
+
+  weakMap.set(john, '...');
+  console.log(weakMap.has(john));
+  john = null;
+  console.log(weakMap.has(john));
+
+  let visitCount = new WeakMap();
+
+  function countUser() {
+    let count = visitCount.get(user) || 0;
+    visitCount.set(user, count + 1);
+  }
+
+	let cache = new WeakMap();
+	let obj1 = {}
+
+  function process(obj) {
+    if (!cache.has(obj)) {
+      let value = obj;
+      cache.set(obj, value);
+    }
+
+    return cache.get(obj);
+  }
+
+  let result1 = process(obj1);
+  let result2 = process(obj1);
+  obj1 = null;
 }
