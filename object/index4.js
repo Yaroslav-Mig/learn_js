@@ -85,8 +85,14 @@ console.log(arc);
   };
 }
 
-// let user = {
-//   name: 'John',
-//   years: 30,
-// };
-// let { name, years: age, isAdmin = false } = user;
+let user2 = {
+  name: 'John',
+  years: 30,
+};
+let { name, years: age = 18, isAdmin = false } = user2;
+
+function showMenu({ title = 'Menu', width = 100, height = 50 } = {}) {
+	console.log(`${title} ${width} ${height}`);
+}
+
+showMenu()
