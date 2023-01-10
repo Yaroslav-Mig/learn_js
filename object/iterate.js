@@ -17,7 +17,7 @@
 
 // TODO - Object.keys(obj)
 //* An array of strings representing the given object's own enumerable string-keyed property keys.
-//*  The order of the array returned by Object.keys() is the same as that provided by a for...in loop.
+//* The order of the array returned by Object.keys() is the same as that provided by a for...in loop.
 //* except that a for...in loop enumerates properties in the prototype chain as well
 //* When using numeric keys, the values are returned in the keys' numerical order
 //* Only strings may have own enumerable properties, while all other primitives return an empty array.

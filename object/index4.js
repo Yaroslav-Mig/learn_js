@@ -40,29 +40,6 @@ console.log(user4?.[key]);
   console.log(+user);
 }
 
-//TODO: Property getters and setters
-function Archiver() {
-  var temperature = null;
-  var archive = [];
-
-  Object.defineProperty(this, 'temperature', {
-    get() {
-      console.log('get!');
-      return temperature;
-    },
-    set(value) {
-      temperature = value;
-      archive.push({ val: temperature });
-    },
-  });
-
-  this.getArchive = function () {
-    return archive;
-  };
-}
-var arc = new Archiver();
-console.log(arc);
-
 // TODO - Destructuring assignment
 {
   let salaries = {
