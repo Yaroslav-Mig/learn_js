@@ -1,4 +1,32 @@
-//TODO: get and set
+//TODO: descriptor
+{
+  const user = {
+    name: 'John',
+  };
+  const descriptor = Object.getOwnPropertyDescriptor(user, 'name');
+  console.log(descriptor);
+}
+{
+  const user = Object.defineProperties(
+    {},
+    {
+      name: {
+        value: 'John',
+        writable: true,
+        enumerable: true,
+      },
+      surname: {
+        value: 'Smith',
+        writable: true,
+        enumerable: true,
+      },
+    }
+  );
+  let cloneUser = Object.defineProperties({}, Object.getOwnPropertyDescriptors(user));
+  console.log(cloneUser);
+  console.log(cloneUser !== user);
+}
+//TODO: getter and setter
 {
   const lang = {
     history: [],
@@ -75,4 +103,66 @@
   }
   const arc = new Archiver();
   console.log(arc);
+  arc.temperature = 10;
+  console.log(arc.temperature);
+  arc.temperature = 11;
+  console.log(arc.getArchive());
+}
+
+{
+  const jar = {};
+  Object.defineProperties(jar, {
+    numberOfCookies: {
+      value: 0,
+      writable: true,
+      enumerable: true,
+    },
+    cookies: {
+      get() {
+        return this.numberOfCookies;
+      },
+      set(value) {
+        if (value >= 0 && value <= 10) {
+          this.numberOfCookies = value;
+        }
+      },
+      configurable: true,
+    },
+  });
+  console.log(jar);
+  jar.cookies = 5;
+  console.log(jar.numberOfCookies);
+}
+
+{
+  const user = {
+    get name() {
+      return this._name;
+    },
+    set name(value) {
+      return value.length > 4 ? (this._name = value) : null;
+    },
+  };
+  console.log(user);
+	user.name = 'Pete';
+	console.log(user.name);
+	user.name = 'Peter';
+	console.log(user.name);
+}
+
+{
+	function User(name, birthday) {
+		this.name = name;
+		this.birthday = birthday;
+
+		Object.defineProperty(this, 'age', {
+			get() {
+				const todayYear = new Date().getFullYear();
+				return todayYear - this.birthday.getFullYear()
+			}
+		})
+	}
+	const bob = new User('Bob', new Date(1887, 7, 15));
+	console.log(bob);
+	console.log(bob.birthday);
 }
