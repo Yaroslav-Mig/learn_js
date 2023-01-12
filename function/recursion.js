@@ -1,3 +1,4 @@
+//TODO: recursive process
 const factorial = (n) => {
   if (n === 1) {
     return 1;
@@ -5,29 +6,31 @@ const factorial = (n) => {
   return n * factorial(n - 1);
 };
 
-//TODO: iterative function with recursion
+//TODO: factorial with loops
 {
-	const factorial = (n) => {
-		let counter = 1;
-		let result = 1;
+  const factorial = (n) => {
+    let counter = 1;
+    let result = 1;
 
-		while (counter <= n) {
-			result = result * counter;
-			counter++;
-		}
-		return result;
-	}
-	console.log(factorial(4));
+    while (counter <= n) {
+      result = result * counter;
+      counter++;
+    }
+    return result;
+  };
+  console.log(factorial(4));
 
-	const factorialFor = (n) => {
-		let result = 1;
-		for (let i = 1; i <= n; i++) {
-			result = result * i;
-		}
-		return result;
-	}
-	console.log(factorialFor(3));
+  const factorialFor = (n) => {
+    let result = 1;
+    for (let i = 1; i <= n; i++) {
+      result = result * i;
+    }
+    return result;
+  };
+  console.log(factorialFor(3));
 }
+
+//TODO: iterative process
 {
   const factorial = (n) => {
     const iterate = (iter, acc) => {
@@ -43,7 +46,7 @@ const factorial = (n) => {
   console.log(factorial(4)); //24
 }
 
-const obj = {
+const list = {
   a: 1,
   b: {
     c: 2,
@@ -71,7 +74,7 @@ const getSum = (obj) => {
   }
   return sum;
 };
-console.log(getSum(obj));
+console.log(getSum(list));
 
 const arr = ['a', ['b', 'c', 'd'], ['e', 'f', ['g', ['j', 'k']]]];
 
