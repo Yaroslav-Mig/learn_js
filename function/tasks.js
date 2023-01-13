@@ -174,16 +174,90 @@ console.log('-------');
 
   function printListLoopReverse(obj) {
     let prop = obj;
-		const arr = [];
+    const arr = [];
 
     while (isObject(prop)) {
       arr.push(prop.value);
       prop = prop.next;
-		}
+    }
 
     for (let i = arr.length - 1; i >= 0; i--) {
       console.log(arr[i]);
     }
   }
   printListLoopReverse(list);
+}
+
+{
+  let arr = [1, 2, 3, 4, 5, 6, 7];
+
+  function inBetween(a, b) {
+    return function (val) {
+      return val >= a && val <= b ? true : false;
+    };
+  }
+
+  function inArray(arr) {
+    return function (val) {
+      return arr.includes(val);
+    };
+  }
+
+  console.log(arr.filter(inBetween(3, 6)));
+  console.log(arr.filter(inArray([1, 2, 10])));
+}
+
+{
+  let users = [
+    { name: 'John', age: 20, surname: 'Johnson' },
+    { name: 'Pete', age: 18, surname: 'Peterson' },
+    { name: 'Ann', age: 19, surname: 'Hathaway' },
+  ];
+
+  const byField = (field) => {
+    return (a, b) => (a[field] > b[field] ? 1 : -1);
+  };
+
+  console.log([...users].sort(byField('name')));
+  console.log([...users].sort(byField('age')));
+}
+
+{
+  function makeArmy() {
+    let shooters = [];
+    let i = 0;
+
+    while (i < 10) {
+      let shooter = function (num) {
+        return () => console.log(num);
+      };
+      shooters.push(shooter(i));
+      i++;
+    }
+    return shooters;
+  }
+
+  function makeArmy2() {
+    let shooters = [];
+    let i = 0;
+
+    while (i < 10) {
+      let j = i;
+      let shooter = function () {
+        console.log(j);
+      };
+      shooters.push(shooter);
+      i++;
+    }
+    return shooters;
+  }
+
+  let army = makeArmy();
+  army[0]();
+	army[5]();
+
+	let army2 = makeArmy2();
+	army2[0]();
+	army2[5]();
+
 }

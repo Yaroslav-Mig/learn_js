@@ -1,5 +1,14 @@
 //TODO: Lexical Env and Closure
 {
+  let name = 'John';
+  function sayHi() {
+    console.log('Hi, ' + name);
+  }
+  name = 'Pete';
+  sayHi();
+  // Pete
+}
+{
   let funcRef = null;
 
   function F() {
@@ -121,14 +130,14 @@
 }
 
 {
-	function multiply(x) {
-		return function f(y) {
-			return x * y;
-		};
-	}
+  function multiply(x) {
+    return function f(y) {
+      return x * y;
+    };
+  }
   const multiplyX2 = multiply(2);
-	const multiplyX5 = multiply(5);
-	console.dir(multiplyX2);
+  const multiplyX5 = multiply(5);
+  console.dir(multiplyX2);
   console.log(multiplyX2(5));
   console.log(multiplyX5(5));
 }
@@ -172,11 +181,11 @@
         return _counter;
       },
     };
-	};
-	counter_1 = counter();
-	counter_1.increment();
-	counter_1.increment();
-	console.log(counter_1.display());
-	counter_1.decrement();
-	console.log(counter_1.display())
+  };
+  counter_1 = counter();
+  counter_1.increment();
+  counter_1.increment();
+  console.log(counter_1.display());
+  counter_1.decrement();
+  console.log(counter_1.display());
 }
