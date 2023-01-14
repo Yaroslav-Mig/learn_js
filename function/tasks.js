@@ -254,10 +254,57 @@ console.log('-------');
 
   let army = makeArmy();
   army[0]();
-	army[5]();
+  army[5]();
 
-	let army2 = makeArmy2();
-	army2[0]();
-	army2[5]();
+  let army2 = makeArmy2();
+  army2[0]();
+  army2[5]();
+}
 
+//TODO: set and get counter value
+{
+  function makeCounter(params) {
+    let count = 0;
+    function counter() {
+      return ++count;
+    }
+    counter.set = (value) => (count = value);
+    counter.decrease = () => count--;
+
+    return counter;
+  }
+}
+
+//TODO: invoke function with several arguments
+{
+  function sum(a) {
+    let total = a;
+    function sumNext(b) {
+      total += b;
+      return sumNext;
+    }
+    sumNext.toString = function () {
+      return total;
+    };
+    return sumNext;
+  }
+	console.log(sum(1)(2));
+  sum(5)(-1)(2);
+  sum(6)(-1)(-2)(-3);
+  sum(0)(1)(2)(3)(4)(5);
+}
+
+{
+  function add(a) {
+    function addNext(b) {
+      return add(a + b);
+    }
+    addNext.toString = function () {
+      return a;
+    };
+    return addNext;
+  }
+
+  console.log(add(1)(2)(3) ==6);
+  console.log(add(1)(2)(3)(4) == 10);
 }

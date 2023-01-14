@@ -70,11 +70,11 @@ const getSum = (obj) => {
   let sum = 0;
   for (const key in obj) {
     const value = obj[key];
-    typeof value === 'object' ? (sum += getSum(value)) : (sum += value);
+    typeof value === 'object' ? (sum += sum(value)) : (sum += value);
   }
   return sum;
 };
-console.log(getSum(list));
+console.log(sum(list));
 
 const arr = ['a', ['b', 'c', 'd'], ['e', 'f', ['g', ['j', 'k']]]];
 
