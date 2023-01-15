@@ -90,7 +90,7 @@
       this.counter = 0;
       setInterval(
         function () {
-          console.log(that.counter++);
+          console.log(counter++);
         }.bind(this),
         1000
       );
@@ -174,4 +174,76 @@
 
   btn_1.addEventListener('click', setRed);
   btn_3.addEventListener('click', setGreen);
+}
+
+{
+  function globalFunc() {
+    console.log(this);
+  }
+  const globalArrowFunc = () => {
+    console.log(this);
+  };
+  console.log(this); // ? window
+  globalFunc(); // ? window
+  globalArrowFunc(); // ? window
+}
+
+{
+  const user = {
+    name: 'Bob',
+    userThis: this,
+    func() {
+      console.log(this);
+    },
+    arrowFunc: () => {
+      console.log(this);
+    },
+  };
+  console.log(user.userThis); // ? window
+  console.log(user.func()); // ? object user
+  user.arrowFunc(); // ? window
+}
+
+{
+  const user = {
+    name: 'Bob',
+    funcFunc() {
+      return function () {
+        console.log(this);
+      };
+    },
+    funcArrow() {
+      return () => {
+        console.log(this);
+      };
+    },
+    arrowFunc: () => {
+      return function () {
+        console.log(this);
+      };
+    },
+    arrowArrow: () => {
+      return () => {
+        console.log(this);
+      };
+    },
+  };
+
+  user.funcFunc()(); // ? undefined
+  user.funcArrow()(); // ? { user }
+  user.arrowFunc()(); // ? undefined
+  user.arrowArrow()(); // ? undefined
+
+  const user2 = {
+    name: 'Jim',
+    funcFunc: user.funcFunc(),
+    funcArrow: user.funcArrow(),
+    arrowFunc: user.arrowFunc(),
+    arrowArrow: user.arrowArrow(),
+  };
+
+  user2.funcFunc(); // ? { user2 }
+  user2.funcArrow(); // ? { user }
+  user2.arrowFunc(); // ? { user2 }
+  user2.arrowArrow(); // ? window
 }
