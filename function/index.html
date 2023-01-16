@@ -5,13 +5,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Document</title>
-    <script src="tasks.js" defer></script>
+    <style>
+      .cube {
+        width: 50px;
+        min-height: 50px;
+        margin: 10px;
+        background-color: hsl(89, 70%, 56%);
+      }
+      .go {
+        color: hsl(0, 72%, 43%);
+      }
+      .stop {
+        color: hsl(200, 80%, 50%);
+      }
+    </style>
+    <script src="timeout_interval.js" defer></script>
   </head>
   <body>
-    <input id="elem1" value="text1"/>
-    <input id="elem2" value="text2"/>
-		<button class="btn-1">Click 1</button>
-		<button class="btn-2">Click 2</button>
-		<button class="btn-3">Click 3</button>
+    <input id="elem1" value="text1" />
+    <input id="elem2" value="text2" />
+    <button class="btn-1">Click 1</button>
+    <button class="btn-2">Click 2</button>
+    <button class="btn-3">Click 3</button>
+    <div id="cube" class="cube"></div>
+    <button id="stop">stop</button>
+		<div id="cube_2" class="cube"></div>
+    <button id="stop_2">stop</button>
+    <div id="my_box">
+      <h3>Hello World</h3>
+    </div>
+    <button id="start_color">Start</button>
+    <button id="stop_color">Stop</button>
+		<p id="counter"></p>
+		<button id="stop_counter">Stop</button>
   </body>
 </html>
