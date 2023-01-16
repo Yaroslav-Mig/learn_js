@@ -288,7 +288,7 @@ console.log('-------');
     };
     return sumNext;
   }
-	console.log(sum(1)(2));
+  console.log(sum(1)(2));
   sum(5)(-1)(2);
   sum(6)(-1)(-2)(-3);
   sum(0)(1)(2)(3)(4)(5);
@@ -305,6 +305,59 @@ console.log('-------');
     return addNext;
   }
 
-  console.log(add(1)(2)(3) ==6);
+  console.log(add(1)(2)(3) == 6);
   console.log(add(1)(2)(3)(4) == 10);
+}
+
+//TODO: setTimeout and setInterval
+{
+  function printNumbers(from, to) {
+    let num = from;
+    const intervalID = setInterval(
+      () => {
+        if (num <= to) {
+          console.log(num);
+          num++;
+        } else {
+          clearInterval(intervalID);
+        }
+      },
+      1000,
+      to
+    );
+  }
+  // printNumbers(7, 13);
+}
+
+{
+  let timeoutID = null;
+  let num = null;
+
+  function printNumbers(from, to) {
+    num = from;
+    if (num <= to) {
+      console.log(num);
+      num++;
+      timeoutID = setTimeout(printNumbers, 1000, num, to);
+    } else {
+      clearTimeout(timeoutID);
+    }
+  }
+  // printNumbers(3, 7);
+}
+
+{
+  function printNumbers(from, to) {
+    let num = from;
+
+    setTimeout(function go() {
+      console.log(num);
+      if (num < to) {
+        setTimeout(go, 1000);
+      }
+      num++;
+    }, 1000);
+	}
+
+	printNumbers(1,4)
 }
