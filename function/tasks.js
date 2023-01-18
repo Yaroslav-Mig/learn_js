@@ -357,7 +357,103 @@ console.log('-------');
       }
       num++;
     }, 1000);
+  }
+
+  // printNumbers(1,4)
+}
+// TODO: Decorators and forwarding functions
+{
+  function work(a, b) {
+    return console.log(a + b);
+  }
+
+  function spy(fn) {
+    function wrapper(...args) {
+      wrapper.calls.push(`call with args: ${args}`);
+      return fn.apply(null, args);
+    }
+    wrapper.calls = [];
+
+    return wrapper;
+  }
+
+  work = spy(work);
+  work(1, 2);
+  work(5, 3);
+  console.log(work.calls);
+}
+
+{
+  function print(x) {
+    return console.log(x);
+  }
+
+  function delayFn(fn, delay) {
+    return function () {
+      setTimeout(() => fn.apply(this, arguments), delay);
+    };
+  }
+  let f1000 = delayFn(print, 3000);
+  let f1500 = delayFn(print, 1500);
+  // f1000('test');
+  // f1500('test_@');
+}
+
+{
+  function debounce(fn, delay) {
+    let interval = false;
+
+    return function () {
+      if (interval) {
+        console.log(`Invoke functions is allowed in ${delay / 1000} seconds`);
+        return;
+      }
+      fn.apply(this, arguments);
+      interval = true;
+      setTimeout(() => (interval = false), delay);
+    };
+  }
+
+  let f = debounce(console.log, 1000);
+  // f('Boz');
+  // f('Foo');
+  // setTimeout(() => f(4), 1100);
+}
+
+{
+	function f(a) {
+		return console.log(a)
 	}
 
-	printNumbers(1,4)
+  function throttle(fn, ms) {
+    let isThrottled = false;
+    let that = null;
+    let savedArgs = null;
+
+    return function wrapper() {
+      if (isThrottled) {
+        console.log(`Invoke functions is allowed in ${ms / 1000} seconds`);
+        that = this;
+        savedArgs = arguments;
+        return;
+			}
+
+      fn.apply(this, arguments);
+			isThrottled = true;
+
+			setTimeout(() => {
+				isThrottled = false
+				if (savedArgs) {
+					wrapper.apply(that, savedArgs);
+					that = null;
+					savedArgs = null;
+				}
+			},ms);
+    };
+  }
+
+  let f1000 = throttle(f, 2000);
+  f1000(1);
+  f1000(2);
+  f1000('i am last');
 }
