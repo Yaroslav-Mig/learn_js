@@ -414,16 +414,37 @@ console.log('-------');
     };
   }
 
-  let f = debounce(console.log, 1000);
-  // f('Boz');
-  // f('Foo');
-  // setTimeout(() => f(4), 1100);
+  let f = debounce(console.log, 500);
+  f('Boz');
+	f('Foo');
+	setTimeout(() => f(3), 500);
+  setTimeout(() => f(4), 1100);
+  setTimeout(() => f('KA'), 1600);
 }
 
 {
-	function f(a) {
-		return console.log(a)
-	}
+  function debounce(fn, ms) {
+    let timerID = null;
+
+    return function name(...args) {
+      clearTimeout(timerID);
+      timerID = setTimeout(() => {
+        fn.apply(this, args);
+      }, ms);
+    };
+  }
+
+  function onChange(e) {
+    console.log(e.target.value);
+  }
+	onChange = debounce(onChange, 300)
+	document.getElementById('search').addEventListener('keyup', onChange);
+}
+
+{
+  function f(a) {
+    return console.log(a);
+  }
 
   function throttle(fn, ms) {
     let isThrottled = false;
@@ -436,19 +457,19 @@ console.log('-------');
         that = this;
         savedArgs = arguments;
         return;
-			}
+      }
 
       fn.apply(this, arguments);
-			isThrottled = true;
+      isThrottled = true;
 
-			setTimeout(() => {
-				isThrottled = false
-				if (savedArgs) {
-					wrapper.apply(that, savedArgs);
-					that = null;
-					savedArgs = null;
-				}
-			},ms);
+      setTimeout(() => {
+        isThrottled = false;
+        if (savedArgs) {
+          wrapper.apply(that, savedArgs);
+          that = null;
+          savedArgs = null;
+        }
+      }, ms);
     };
   }
 
@@ -456,4 +477,37 @@ console.log('-------');
   f1000(1);
   f1000(2);
   f1000('i am last');
+}
+
+// TODO: Bind and going partial
+{
+  function askPassword(ok, fail) {
+    let password = prompt('Password?', '');
+    password === 'rockstar' ? ok() : fail();
+  }
+
+  let user = {
+    name: 'Вася',
+    loginOk() {
+      console.log(`${this.name} logged in`);
+    },
+    loginFail() {
+      console.log(`${this.name} failed to log in`);
+    },
+  };
+
+  askPassword(user.loginOk.bind(user), user.loginFail.bind(user));
+
+  let user2 = {
+    name: 'John',
+    login(result) {
+      return console.log(this.name + (result ? ' logged in' : ' failed to log in'));
+    },
+  };
+
+  const boundLogin = user2.login.bind(user2);
+  askPassword(
+    () => boundLogin(true),
+    () => boundLogin(false)
+  );
 }

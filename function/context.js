@@ -247,3 +247,50 @@
   user2.arrowFunc(); // ? { user2 }
   user2.arrowArrow(); // ? window
 }
+
+//TODO: this and timeout
+{
+  let user = {
+    firstName: 'VAS',
+    sayHi() {
+      console.log(`Hello, ${this.firstName}!`);
+    },
+  };
+  setTimeout(user.sayHi, 1000);
+  //* lost context
+
+  setTimeout(function () {
+    user.sayHi();
+  }, 1000);
+  //* wrapper for setTimeout don`t lose context
+
+  user = {
+    sayHi() {
+      console.log('Another user');
+    },
+  };
+  // * Lost context again due to overwriting function in during 1 second
+}
+
+{
+  let user = {
+    firstName: 'tony',
+  };
+  function func(phrase) {
+    console.log(phrase + ', ' + this.firstName);
+  }
+  let userFn = func.bind(user);
+	userFn('Hello');
+
+  let user2 = {
+    firstName: 'quarry',
+    say(phrase) {
+      return console.log(`${phrase}, ${this.firstName}!`);
+    },
+  };
+  let user2Say = user2.say.bind(user2);
+  user2Say('Hi');
+	user2Say('Bye');
+
+	setTimeout(user2Say, 1000, 'Good day')
+}

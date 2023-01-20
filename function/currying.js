@@ -22,19 +22,29 @@
   console.log(curriedSum()(2)(2)(3));
 }
 
-//TODO: curring()
+//TODO: curring() and partial function
 {
+  const partialFunc = (fn, ...argsBound) => {
+    return function(...nextArgs) {
+      return fn.call(this, ...argsBound, ...nextArgs);
+    };
+  };
+
+  let user = {
+    firstName: 'John',
+    say(time, phrase) {
+      console.log(`[${time}] ${this.firstName}: ${phrase}!`);
+    },
+  };
+
+  user.sayNow = partialFunc(user.say, new Date().getHours() + ':' + new Date().getMinutes());
+  user.sayNow('Hello');
+
   const getVolume = (w, l, h) => w * l * h;
 
-  const partialFunc = (fn, ...args) => {
-    return (...innerArgs) => {
-      return fn(...args, ...innerArgs);
-    };
-	};
-
-	const volumeW = partialFunc(getVolume, 100);
-	console.log(volumeW(200, 300));
-	console.log(volumeW(70, 60));
+  const volumeW = partialFunc(getVolume, 100);
+  console.log(volumeW(200, 300));
+  console.log(volumeW(70, 60));
 
   const getVolumeWidth = getVolume.bind(null, 10);
   const getVolumeWidthLength = getVolumeWidth.bind(null, 20);
