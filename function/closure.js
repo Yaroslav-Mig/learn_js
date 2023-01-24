@@ -189,3 +189,35 @@
   counter_1.decrement();
   console.log(counter_1.display());
 }
+
+const myApp = (function () {
+  function fnPrivate() {
+    console.log(this);
+    return 'private';
+  }
+
+	return {
+
+    func(a, b) {
+			console.log(this);
+			const helperFn = (c,d) => {
+				console.log(this);
+				this.multiply = c * d;
+			}
+			helperFn(a, b);
+			return a + b;
+		},
+
+		fnPublic: fnPrivate,
+
+		makeProp(a,b) {
+			this.multiply = a * b;
+			console.log(this);
+		}
+  };
+})();
+
+// console.log(myApp.func(1, 2));
+// myApp.fnPublic();
+// myApp.makeProp(2, 3);
+myApp.func(4, 2)
