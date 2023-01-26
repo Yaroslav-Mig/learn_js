@@ -36,6 +36,26 @@
   console.log(constructorArr.__proto__.__proto__ === Object.prototype);
 }
 
+//TODO: Inheritance with __proto__
+{
+  const user = {
+    login: '',
+    password: '',
+    validatePassword() {
+      return this.password.length > 5 ? true : false;
+    },
+  };
+
+  const userProfile = {
+    userName: '',
+    photo: '',
+    age: 0,
+    __proto__: user,
+  };
+
+  console.log(userProfile);
+}
+
 console.log('---------------------------');
 //TODO: Inheritance with prototype I
 {
@@ -58,8 +78,8 @@ console.log('---------------------------');
     console.log(`eyes: ${this.eyes}`);
   };
 
-	function Wolf(species, subspecies) {
-		if (!new.target) {
+  function Wolf(species, subspecies) {
+    if (!new.target) {
       return new Wolf(species, subspecies);
     }
     Animal.call(this, 4, true);
@@ -76,8 +96,8 @@ console.log('---------------------------');
   const greyWolf = new Wolf('wolf', 'grey');
   console.log(greyWolf);
 
-	function Parrot(species, subspecies) {
-		if (!new.target) {
+  function Parrot(species, subspecies) {
+    if (!new.target) {
       return new Parrot(species, subspecies);
     }
     Animal.call(this, 2, true);
@@ -100,11 +120,11 @@ console.log('---------------------------');
   const araParrot = new Parrot('parrot', 'ara');
   console.log(araParrot);
 
-	console.log(Object.getPrototypeOf(araParrot) === Parrot.prototype);
+  console.log(Object.getPrototypeOf(araParrot) === Parrot.prototype);
 
-	console.log(araParrot instanceof Wolf);
-	console.log(araParrot instanceof Parrot);
-	console.log(araParrot instanceof Animal);
+  console.log(araParrot instanceof Wolf);
+  console.log(araParrot instanceof Parrot);
+  console.log(araParrot instanceof Animal);
 }
 
 console.log('---------------------------');
@@ -158,4 +178,29 @@ console.log('---------------------------');
   Parrot.prototype.constructor = Parrot;
   const araParrot = new Parrot('ara', 'south america');
   console.log(araParrot);
+}
+
+//TODO: Inheritance with prototype III
+
+{
+  function Human(name, level) {
+    this.name = name;
+    this.level = level;
+  }
+  Human.prototype.speak = function () {
+    return `${this.name} says hello.`;
+  };
+
+  function SuperHero(name, level) {
+    Human.call(this, name, level);
+  }
+  SuperHero.prototype.fly = function () {
+    return `${this.name} is flying.`;
+  };
+
+  Object.setPrototypeOf(SuperHero.prototype, Human.prototype);
+
+  const superMan = new SuperHero('Clark Kent', 1);
+  console.log(superMan.fly());
+  console.log(superMan.speak());
 }
