@@ -11,10 +11,19 @@
   console.dir(harry.__proto__);
   console.dir(harry.__proto__ === Person.prototype);
   console.dir(harry.__proto__.constructor === Person.prototype.constructor);
+  console.log(harry.constructor === Person);
   console.log('---------');
 
   harry.name = 'Harry';
   Person.prototype.country = 'UK';
+
+  function Rabbit(name) {
+    this.name = name;
+  }
+
+  let rabbit = new Rabbit('White Rabbit');
+  let rabbit2 = new rabbit.constructor('Black Rabbit');
+  //*
 
   console.log(harry.name);
   console.log(harry.country);
@@ -55,6 +64,27 @@
 
   console.log(userProfile);
 }
+{
+  let user = {
+    name: 'John',
+    surname: 'Smith',
+
+    set fullName(value) {
+      [this.name, this.surname] = value.split(' ');
+    },
+    get fullName() {
+      return `${this.name} ${this.surname}`;
+    },
+  };
+
+  let admin = {
+    __proto__: user,
+    isAdmin: true,
+  };
+  console.log(admin);
+  admin.fullName = 'Alice Cooper';
+  console.log(admin.fullName);
+}
 
 console.log('---------------------------');
 //TODO: Inheritance with prototype I
@@ -73,7 +103,10 @@ console.log('---------------------------');
     this.tail = tail;
   }
 
-  Animal.prototype = animalProto;
+  Animal.prototype = {
+    animalProto,
+    constructor: Animal,
+  };
   Animal.prototype.showEyes = function () {
     console.log(`eyes: ${this.eyes}`);
   };
