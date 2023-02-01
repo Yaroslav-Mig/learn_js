@@ -26,6 +26,8 @@ class Car {
 
 const volvoDiesel = new Car('volvo', 'diesel');
 const bmwGasoline = new Car('bmw', 'gasoline');
+
+console.dir(Car);
 console.log(Car.type);
 Car.guarantee();
 console.log(volvoDiesel);
@@ -66,6 +68,8 @@ class Volvo extends Car {
     console.log(`this ${this.model} is starting`);
   }
 }
+console.dir(Volvo);
+console.log(Volvo.type);
 
 const volvoV60 = new Volvo('volvo', 'gasoline', 'v60', 'bursting blue effect ', 'r-design');
 console.log(volvoV60);
@@ -136,7 +140,7 @@ volvoV60.drive(30);
   console.log(circleGreen);
 }
 
-//TODO: super and setTimeout
+//TODO: super and setTimeout, property of class
 {
   class Animal {
     constructor(name) {
@@ -187,6 +191,40 @@ volvoV60.drive(30);
 
   let rabbitGrey = new Rabbit('Grey rabbit', 10);
   console.log(rabbitGrey);
+}
+
+{
+  class Animal {
+    name = 'animal';
+
+    constructor() {
+      console.log(this.name);
+      this.showName();
+    }
+
+    showName() {
+      console.log('ANIMAL');
+    }
+  }
+  class Rabbit extends Animal {
+    name = 'rabbit';
+
+    // constructor() {
+    // 	super()
+    // 	console.log(this.name);
+    // }
+    getName() {
+      return this.name;
+    }
+
+    showName() {
+      console.log('RABBIT');
+    }
+  }
+  new Animal();
+  new Rabbit();
+  // const rabbit = new Rabbit();
+  // console.log(rabbit.getName());
 }
 
 //TODO: Static methods and property
@@ -276,7 +314,9 @@ volvoV60.drive(30);
   let coffeeMachine = new CoffeeMachine(100);
   console.dir(coffeeMachine);
 
-  class MegaMachine extends CoffeeMachine {}
+  class MegaMachine extends CoffeeMachine {
+    _waterAmount = 10;
+  }
   let megaMachine = new MegaMachine(300);
   console.dir(megaMachine);
 }
@@ -285,28 +325,72 @@ volvoV60.drive(30);
 {
   class CoffeeMachine {
     #waterLimit = 300;
-		#waterAmount = 0;
+    #waterAmount = 0;
 
     #checkWater(value) {
-      if (value < 0) throw new Error('Negative capacity of water');
-      if (value > this.#waterLimit) throw new Error('Too much water');
-		}
+      if (this.#waterAmount > this.#waterLimit) {
+        throw new Error('Too much water');
+      }
+    }
 
-		get waterAmount() {
-			return this.#waterAmount;
-		}
-		set waterAmount(value) {
-			if (value < 0) throw new Error('Negative capacity of water')
-			if (this.#waterAmount < this.#waterLimit) throw new Error('Too much water');;
-			this.#waterAmount += value;
-		}
+    get waterAmount() {
+      return this.#waterAmount;
+    }
+    set waterAmount(value) {
+      const currentWaterAmount = this.#waterAmount + value;
+      if (value < 0) {
+        throw new Error('Negative capacity of water');
+      } else if (currentWaterAmount > this.#waterLimit) {
+        throw new Error('Too much water');
+      } else {
+        this.#waterAmount += value;
+      }
+    }
   }
 
   let coffeeMachine = new CoffeeMachine();
-	//* Error
-	// coffeeMachine.#checkWater();
+  //* Error
+  // coffeeMachine.#checkWater();
   // coffeeMachine.#waterLimit = 1000;
-	coffeeMachine.waterAmount = 200;
-	console.dir(coffeeMachine);
-	coffeeMachine.waterAmount = 200;
+  coffeeMachine.waterAmount = 300;
+  console.dir(coffeeMachine);
+  // coffeeMachine.waterAmount = 200;
+}
+
+//TODO: Extending built-in classes
+{
+	class PowerArray extends Array {
+		isEmpty() {
+			return this.length === 0;
+		}
+	}
+	let arr = new PowerArray(1, 2, 5, 10, 50);
+	console.log(arr.isEmpty())
+}
+
+{
+	let sayMixin = {
+		say(phrase) {
+			console.log(phrase);
+		}
+	};
+
+	let sayHiMixin = {
+		__proto__: sayMixin,
+
+		sayHi() {
+			super.say(`Hi, ${this.name}`);
+		},
+		sayBye() {
+			super.say(`Bye, ${this.name}`);
+		}
+	};
+	class User {
+		constructor(name) {
+			this.name = name;
+		}
+	}
+
+	Object.assign(User.prototype, sayHiMixin);
+	new User("Vase").sayHi();
 }

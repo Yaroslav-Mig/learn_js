@@ -147,6 +147,23 @@
   let clock = new Clock({ template: 'h:m:s' });
   // clock.start();
   // setTimeout(() => clock.stop(), 5000);
+
+  class ExtendedClock extends Clock {
+    constructor(options) {
+      super(options);
+      const { precision = 1000 } = options;
+      this.precision = precision;
+    }
+
+    start() {
+      this.render();
+      this.timerID = setInterval(() => this.render(), this.precision);
+    }
+  }
+
+  let clock2 = new ExtendedClock({ template: 'h:m:s', precision: 2000 });
+  // clock2.start();
+  // setTimeout(() => clock2.stop(), 5000);
 }
 console.log('......................');
 {
@@ -156,10 +173,10 @@ console.log('......................');
   function it() {}
   console.dir(it.__proto__ === it.prototype);
   //* false
-	console.dir(it.__proto__ === Function.prototype);
-	//* true
-	console.dir(it.__proto__ === it.prototype.constructor.__proto__);
-	//* true
+  console.dir(it.__proto__ === Function.prototype);
+  //* true
+  console.dir(it.__proto__ === it.prototype.constructor.__proto__);
+  //* true
 
   function js() {}
   console.dir(it.__proto__ === js.__proto__);
@@ -179,17 +196,17 @@ console.log('......................');
   console.dir(getTask.prototype === Object.prototype);
   //* false
 
-	let age = 18;
-	console.dir(age.__proto__ === Number.__proto__);
-	//! false
-	console.dir(age.prototype === Number.prototype);
-	//! false
-	console.dir(Number.prototype);
-	//* true
+  let age = 18;
+  console.dir(age.__proto__ === Number.__proto__);
+  //! false
+  console.dir(age.prototype === Number.prototype);
+  //! false
+  console.dir(Number.prototype);
+  //* true
 
-	class Person { }
-	console.dir(Person.__proto__ === Person.prototype);
-	//* false
-	console.dir(Person.__proto__ === Function.prototype);
-	//! true
+  class Person {}
+  console.dir(Person.__proto__ === Person.prototype);
+  //* false
+  console.dir(Person.__proto__ === Function.prototype);
+  //! true
 }
