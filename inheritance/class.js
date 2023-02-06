@@ -355,42 +355,104 @@ volvoV60.drive(30);
   coffeeMachine.waterAmount = 300;
   console.dir(coffeeMachine);
   // coffeeMachine.waterAmount = 200;
+
+	class MegaCoffeeMachine extends CoffeeMachine {
+		method() {
+			//? this.#waterAmount;
+			//! Error: can only access for instances from CoffeeMachine
+		}
+	}
+}
+
+{
+  class Person {
+    #name = 'undefined';
+    #age = 1;
+    constructor(name, age) {
+      this.#name = this.#checkName(name);
+      this.setAge(age);
+    }
+    #checkName(name) {
+      if (name !== 'admin') return name;
+    }
+    setAge(age) {
+      if (age > 0 && age < 110) this.#age = age;
+    }
+    print() {
+      console.log(`Name: ${this.#name}  Age: ${this.#age}`);
+    }
+  }
+  const tom = new Person('Tom', 37);
+	tom.print();
+	//* Name: Tom  Age: 37
+
+	const bob = new Person('admin', 41);
+	bob.print();
+	//* Name: Undefined  Age 41
 }
 
 //TODO: Extending built-in classes
 {
-	class PowerArray extends Array {
-		isEmpty() {
-			return this.length === 0;
-		}
-	}
-	let arr = new PowerArray(1, 2, 5, 10, 50);
-	console.log(arr.isEmpty())
+  class PowerArray extends Array {
+    isEmpty() {
+      return this.length === 0;
+    }
+  }
+  let arr = new PowerArray(1, 2, 5, 10, 50);
+  console.log(arr.isEmpty());
 }
+class ExtArray extends Array {
+  clear() {
+    return this.filter((el) => el);
+  }
+}
+const arr = new ExtArray(3, null, 7, undefined, '');
+console.log(arr.clear());
+// [3, 7]
 
+//TODO: Mixin
 {
-	let sayMixin = {
-		say(phrase) {
-			console.log(phrase);
-		}
-	};
+  let sayMixin = {
+    say(phrase) {
+      console.log(phrase);
+    },
+  };
 
-	let sayHiMixin = {
-		__proto__: sayMixin,
+  let sayHiMixin = {
+    __proto__: sayMixin,
 
-		sayHi() {
-			super.say(`Hi, ${this.name}`);
-		},
-		sayBye() {
-			super.say(`Bye, ${this.name}`);
-		}
-	};
-	class User {
-		constructor(name) {
-			this.name = name;
-		}
-	}
+    sayHi() {
+      super.say(`Hi, ${this.name}`);
+    },
+    sayBye() {
+      super.say(`Bye, ${this.name}`);
+    },
+  };
+  class User {
+    constructor(name) {
+      this.name = name;
+    }
+  }
 
-	Object.assign(User.prototype, sayHiMixin);
-	new User("Vase").sayHi();
+  Object.assign(User.prototype, sayHiMixin);
+  new User('Vase').sayHi();
 }
+
+//TODO: class as parameter
+const Drink = class {
+  constructor(price, discount = 1) {
+    this.price = Math.round(price * discount * 100) / 100;
+  }
+}
+const juice = new Drink(1.25);
+
+const drinkWithDiscount = (Base, discount) => {
+  return class extends Base {
+    constructor(price) {
+      super(price, discount);
+    }
+  }
+}
+const Tea = drinkWithDiscount(Drink, 0.8);
+const greenTea = new Tea(2);
+const blackTea = new Tea(1.5);

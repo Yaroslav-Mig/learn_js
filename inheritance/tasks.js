@@ -161,7 +161,8 @@
     }
   }
 
-  let clock2 = new ExtendedClock({ template: 'h:m:s', precision: 2000 });
+	let clock2 = new ExtendedClock({ template: 'h:m:s', precision: 2000 });
+	console.log(clock2);
   // clock2.start();
   // setTimeout(() => clock2.stop(), 5000);
 }
@@ -188,6 +189,7 @@ console.log('......................');
     return '<div> Hello </div>';
   };
   console.dir(Component.prototype === Object.prototype);
+  console.log(Component.__proto__ === Function.prototype);
   //* false
 
   function getTask() {
@@ -209,4 +211,66 @@ console.log('......................');
   //* false
   console.dir(Person.__proto__ === Function.prototype);
   //! true
+
+  class Samurai {
+    constructor(name) {
+      this.name = name;
+    }
+    hi() {
+      console.log(this.name);
+    }
+  }
+
+  let shogun = new Samurai('Yar');
+  console.log(shogun.__proto__.__proto__ === Object.prototype);
+  console.log(shogun.__proto__.constructor.__proto__ === Function.prototype);
+  console.log(shogun.__proto__.__proto__.__proto__ === null);
+}
+
+//TODO: Context
+
+{
+  function foo() {
+    const bar = 'bar_2';
+    console.log(this.bar);
+  }
+  const o3 = { bar: 'bar_3', foo: foo };
+  const o4 = { bar: 'bar_4', foo: foo };
+  const bar = 'bar_1';
+
+  foo(); //* bar_1
+
+  o3.foo(); //* bar_3
+
+  o3.foo(); //* bar_4
+}
+
+{
+  const o1 = {
+    bar: 'bar_1',
+    foo: function () {
+      console.log(this.bar);
+    },
+  };
+  const o2 = { bar: 'bar_2', foo: o1.foo };
+
+  const bar = 'bar_3';
+  const foo = o1.foo;
+
+  o1.foo(); //* bar_1
+  o2.foo(); //* bar_2
+  foo(); //*  bar_3
+}
+
+{
+  const bar = 'bar2';
+
+  function daz() {
+    const bar = 'bar5';
+    function maz() {
+      console.log(this.bar);
+    }
+    maz();
+  }
+  daz(); //* bar_2
 }

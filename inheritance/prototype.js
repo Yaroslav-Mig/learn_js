@@ -237,3 +237,25 @@ console.log('---------------------------');
   console.log(superMan.fly());
   console.log(superMan.speak());
 }
+
+//TODO: Static methods
+{
+	function Point(x, y) {
+    this.x = x;
+    this.y = y;
+  }
+
+  Point.compare = function (obj_1, obj_2) {
+    return obj_1.x === obj_2.x && obj_1.y === obj_2.y;
+  };
+  Point.newRandom = function () {
+    const x = Math.floor(Math.random() * 101);
+    const y = Math.floor(Math.random() * 101);
+    return new this(x, y);
+	};
+
+	const point_1 = Point.newRandom();
+	const point_2 = Point.newRandom();
+	console.log(point_1, point_2);
+	console.log(Point.compare(point_1, point_2));
+}
