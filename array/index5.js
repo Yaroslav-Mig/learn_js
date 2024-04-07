@@ -3,10 +3,15 @@
 //* The slice() method returns selected elements in an array, as a new array. Method selects from a given start to the end (end not included).
 //* IT does not change the original array. A new array containing the extracted elements.
 //* If start is undefined, slice starts from the index 0.
-//* If start is greater than the index range of the sequence, an empty array is returned.
+//* If start is equal or greater than the index range of the sequence, an empty array is returned.
 //* A negative index can be used, indicating an offset from the end of the sequence. slice(-2) extracts the last two elements in the sequence.
+//* Negative start index — if -array.length <= start < 0, start + array.length is used.
+//* Negative start index - if start < -array.length or start is omitted, 0 is used.
+//* Negative end index counts back from the end of the array — if -array.length <= end < 0, end + array.length is used.
+//* Negative end index - if end < -array.length, 0 is used.
 //* If end is omitted, slice extracts through the end of the sequence (arr.length).
 //* If end is greater than the length of the sequence, slice extracts through to the end of the sequence (arr.length).
+//* If end implies a position before or at the start position, nothing is extracted.
 //* For objects, slice copies object references into the new array. Both the original and new array refer to the same object.
 //* If an object changes, the changes are visible to both the new and original arrays.
 
@@ -16,9 +21,9 @@
 // slice(start, end)
 // start - Optional. Start position. Default is 0. Negative numbers select from the end of the array.
 // end - Optional. End position but not including end. Default is last element.Negative numbers select from the end of the array.
-//
-//
-//
+
+// ? Return value
+// A new array containing the selected elements.
 
 //TODO: extract elements with slice()
 {
@@ -56,23 +61,27 @@
 //TODO: polyfill for function slice()
 {
   const sliceFn = (arr, start = 0, end = arr.length) => {
-    const endInd = arr.length;
+    const length = arr.length;
 
-    if (start > arr.length) {
+    if (start >= length) {
       return [];
     }
-    if (end > endInd) {
-      end = endInd;
+
+    if (Math.abs(start) >= length && start < 0) {
+      start = 0;
+    } else if (start < 0) {
+      start = start + length;
     }
-    if (start < 0) {
-      start = start + endInd;
-    }
-    if (end < 0) {
-      end = end + endInd;
+
+    if (end > length) {
+      end = length;
+    } else if (Math.abs(end) >= length && end < 0) {
+      return [];
+    } else if (end < 0) {
+      end = end + length;
     }
 
     let newArr = [];
-
     for (let i = start; i < end; i++) {
       newArr.push(arr[i]);
     }
@@ -81,17 +90,13 @@
 
   const fruits = ['Banana', 'Orange', 'Lemon', 'Apple', 'Mango'];
 
+  console.log('----------------');
   //* normal
   console.log(sliceFn(fruits, 1, 3));
   console.log(fruits.slice(1, 3));
   console.log('----------------');
 
   //* there are no arguments
-  console.log(sliceFn(fruits, 1, 3));
-  console.log(fruits.slice(1, 3));
-  console.log('----------------');
-
-  //* If start is undefined
   console.log(sliceFn(fruits));
   console.log(fruits.slice());
   console.log('----------------');
@@ -107,8 +112,8 @@
   console.log('----------------');
 
   //* If start is greater than the index range of the sequence
-  console.log(sliceFn(fruits, 6, 7));
-  console.log(fruits.slice(6, 7));
+  console.log(sliceFn(fruits, 5, 7));
+  console.log(fruits.slice(5, 7));
   console.log('----------------');
 
   //* If start is greater than the end
@@ -120,7 +125,25 @@
   console.log(sliceFn(fruits, -2));
   console.log(fruits.slice(-2));
   console.log('----------------');
-
   console.log(sliceFn(fruits, 2, -1));
   console.log(fruits.slice(2, -1));
+  console.log('----------------');
+
+  //* Both negative indexes
+  console.log(sliceFn(fruits, -2, -1));
+  console.log(fruits.slice(-2, -1));
+  console.log('----------------');
+  console.log(sliceFn(fruits, -5, -1));
+  console.log(fruits.slice(-5, -1));
+  console.log('----------------');
+
+  //* If start negative index is greater than the index range of the sequence
+  console.log(sliceFn(fruits, -6, -1));
+  console.log(fruits.slice(-6, -1));
+  console.log('----------------');
+
+  //* If end negative index is greater than the index range of the sequence
+  console.log(sliceFn(fruits, -3, -6));
+  console.log(fruits.slice(-3, -6));
+  console.log('----------------');
 }
