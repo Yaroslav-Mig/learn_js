@@ -1,7 +1,6 @@
 // ! methods concat()
 
 //* The concat() method is used to merge two or more arrays.
-//* The concat() method returns a new array, containing the joined arrays.
 //* The concat() method does not change the existing arrays.
 //* If all valueN parameters are omitted, concat returns a shallow copy of the existing array on which it is called.
 //* Concatenating array(s)/value(s) will leave the originals untouched.
@@ -13,6 +12,9 @@
 // concat(value0)
 // concat(value0, value1)
 // concat(value0, value1, ... , valueN)
+
+// ? Return
+// A new array, containing the joined arrays
 
 //TODO: Join arrays
 {

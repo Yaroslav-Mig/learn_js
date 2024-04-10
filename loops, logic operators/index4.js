@@ -35,7 +35,7 @@ const b = [1, 2, 3];
   let p = document.querySelectorAll('p');
   console.log(p);
   p = [...p];
-  let text = p.map((el) => el.textContent);
+  let text = p.map(el => el.textContent);
   console.log(p);
   console.log(text);
 }
@@ -75,9 +75,12 @@ const b = [1, 2, 3];
   f(100, 4, 5, 6);
 
   function fn() {
-    const showArg = () => console.log(arguments[0]);
+    function showArg() {
+      console.log(arguments[0]);
+    }
     showArg('hi');
-    console.log([...arguments]);
+
+    console.log([...arguments[0]]);
     console.log(Array.from(arguments));
   }
   fn('hello');
@@ -167,6 +170,26 @@ const b = [1, 2, 3];
     const { name, ...info } = person;
     console.log(name, info);
   }
+
+  // specify property several times, only object
+  const { a: X, a: Y } = { a: 1 };
+  console.log(X, Y);
+}
+
+//TODO: destructure to an already declared variable
+{
+  let a, b, c, x, y, z;
+  const obj = {
+    x: 4,
+    y: 5,
+    z: 6,
+  };
+
+  [ (a, b, c) ] = [ 1, 2, 3 ];
+  ({ x, y, z } = obj);
+
+  console.log(a, b, c, x, y, z);
+  // 1 2 3 4 5 6
 }
 //TODO: smart parameters for function
 {
@@ -192,12 +215,18 @@ const b = [1, 2, 3];
     title: 'My menu',
     items: ['Item1', 'Item2'],
   };
-  function showMenu({ title = 'Untitled', width: w = 100, height: h = 200, items: [item1, item2] } = {}) {
+  function showMenu({
+    title = 'Untitled',
+    width: w = 100,
+    height: h = 200,
+    items: [item1, item2] = [],
+  } = {}) {
     console.log(`${title} ${w} ${h}`);
     console.log(item1);
     console.log(item2);
   }
   showMenu(options);
+  showMenu({});
 
   //*  такое деструктурирование подразумевает, что в showMenu() будет обязательно передан аргумент => showMenu() нет аргументов, ошибка
   //* Если нам нужны все значения по умолчанию, то нам следует передать пустой объект в вызов функции showMenu({})
@@ -206,7 +235,7 @@ const b = [1, 2, 3];
   const student = {
     name: 'John Doe',
     age: 16,
-    scores: { 
+    scores: {
       maths: 74,
       english: 63,
       science: 85,
@@ -265,5 +294,9 @@ const b = [1, 2, 3];
     return other;
   }
   console.log(deleteField('name', person));
-}
 
+  function deleteField2(prop, { [prop]: del, ...other }) {
+    return other;
+  }
+  console.log(deleteField2('name', person));
+}
